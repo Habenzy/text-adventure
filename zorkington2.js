@@ -30,7 +30,7 @@ class Room {
     
     this.examineItem = (item) => {
       let thisItem = this.inventory.find(obj => {
-        return obj.name === item.toLowerCase()
+        return (obj.name === item.toLowerCase())
       } )
       if (this.inventory.includes(thisItem)){
         return (thisItem.description)
@@ -38,11 +38,15 @@ class Room {
       else {return (`You don't see ${item} in here...`)}
     };
 
+    this.enterRoom = () => {
+      return (this.name + '\n' + this.description)
+    }
+
   }
 }
 
 //Inventory object definitions
-//mainStreet objs
+  //mainStreet objs
 const keyPad = {
   name = 'keypad',
   description = 'A keypad with the digits 1-9.\nLooks pretty standard.',
@@ -61,8 +65,14 @@ const sign = {
     return (this.description)
   }
 }
-//foyer objs
-  //7 days
+  //foyer objs
+const paper = {
+  name = 'paper',
+  description = 'The 7 Days, newspaper of Burlington.\nNothing interesting happened today.',
+  read = () => {
+    return (this.description)
+  }
+}
 //classroom 
   //Alex C
 //muddyWaters
@@ -87,7 +97,8 @@ player = {
       return ("The door is locked...")
     }
     else if (this.currentRoom.canChangeTo(room) && room.isLocked === false) {
-      this.currentRoom = room
+      this.currentRoom = room;
+      currentRoom.enterRoom()
     }
     else { return ("You can't go that way") }
   },
